@@ -3,19 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShortURL - URL Shortener</title>
+    <title>QuickShort - URL Shortener</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
+</head>
 <body>
     <div class="container">
-        <h1>ShortURL</h1>
+        <h1>QuickShort</h1>
         <div class="input-group">
-            <input type="url" id="original-url" placeholder="Enter your long URL here...">
+            <input type="url" id="original-url" placeholder="https://example.com/very-long-url">
             <button onclick="shortenURL()">Shorten URL</button>
+        </div>
+        <div class="loading" id="loading">
+            <i class="fas fa-spinner fa-spin"></i> Shortening URL...
+        </div>
+        <div class="error" id="error">
+            <i class="fas fa-exclamation-triangle"></i> <span id="error-text"></span>
         </div>
         <div class="result" id="result">
             <div class="short-url">
-                <span id="short-url-text"></span>
+                <a href="#" id="short-url-text" target="_blank" rel="noopener"></a>
                 <button class="copy-btn" onclick="copyToClipboard()">
                     <i class="fas fa-copy"></i>
                     <span>Copy</span>
@@ -24,9 +32,11 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
-    <script async="async" data-cfasync="false" src="//pl25972630.effectiveratecpm.com/fd4bd8bb823dde7b3922b43582da98b8/invoke.js"></script>
-<div id="container-fd4bd8bb823dde7b3922b43582da98b8"></div>
 
+    
 </body>
+
+<script src="script.js"></script>
+<script async="async" defer data-cfasync="false" src="//pl25972630.effectiveratecpm.com/fd4bd8bb823dde7b3922b43582da98b8/invoke.js"></script>
+<div id="container-fd4bd8bb823dde7b3922b43582da98b8"></div>
 </html>

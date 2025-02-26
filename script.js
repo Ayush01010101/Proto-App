@@ -1,37 +1,54 @@
-function generateShortCode(length = 6) {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    for (let i = 0; i < length; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
-}
-
-function shortenURL() {
+async function shortenURL() {
     const originalUrl = document.getElementById('original-url').value;
+    const loading = document.getElementById('loading');
+    const result = document.getElementById('result');
+    const error = document.getElementById('error');
+
+    // Reset states
+    error.style.display = 'none';
+    result.style.display = 'none';
     
     if (!originalUrl) {
-        alert('Please enter a URL');
+        showError('Please enter a URL');
         return;
     }
 
-    // Validate URL format
     try {
         new URL(originalUrl);
     } catch {
-        alert('Please enter a valid URL');
+        showError('Please enter a valid URL');
         return;
     }
 
-    const shortCode = generateShortCode();
-    const shortUrl = `${window.location.origin}/${shortCode}`;
+    loading.style.display = 'block';
 
-    // Store in localStorage
-    localStorage.setItem(shortCode, originalUrl);
+    try {
+        const response = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(originalUrl)}`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-    // Display result
-    document.getElementById('short-url-text').textContent = shortUrl;
-    document.querySelector('.result').style.display = 'block';
+        const shortUrl = await response.text();
+
+        if (shortUrl.startsWith('http')) {
+            document.getElementById('short-url-text').textContent = shortUrl;
+            document.getElementById('short-url-text').href = shortUrl;
+            result.style.display = 'block';
+        } else {
+            throw new Error('Invalid response from server');
+        }
+    } catch (error) {
+        showError('Failed to shorten URL. Please try again.');
+    } finally {
+        loading.style.display = 'none';
+    }
+}
+
+function showError(message) {
+    const error = document.getElementById('error');
+    document.getElementById('error-text').textContent = message;
+    error.style.display = 'flex';
 }
 
 function copyToClipboard() {
