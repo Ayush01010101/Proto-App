@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShortURL - URL Shortener</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+<body>
+    <div class="container">
+        <h1>ShortURL</h1>
+        <div class="input-group">
+            <input type="url" id="original-url" placeholder="Enter your long URL here...">
+            <button onclick="shortenURL()">Shorten URL</button>
+        </div>
+        <div class="result" id="result">
+            <div class="short-url">
+                <span id="short-url-text"></span>
+                <button class="copy-btn" onclick="copyToClipboard()">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
